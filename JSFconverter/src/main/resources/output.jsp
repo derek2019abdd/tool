@@ -11,9 +11,11 @@
 	</h:head>
     <h:body>
       <h3>Java Image</h3>
-      <h:graphicImage value="image/java.jpg"/>
+      <img value="image/java.jpg"/>
+
       <h3>Java Image</h3>
-      <h:graphicImage id="pic2" class="img" url="image/java.jpg" alt="pic for demo"
-        title="example pic"  rendered="${!empty Bean.pic}"/>
+      <c:if test="${!empty fn:escapeXML(Bean.pic)}">
+<img alt="pic for demo" id="pic2" title="example pic" class="img" url="image/java.jpg"/>
+</c:if>
     </h:body>
 </html>
