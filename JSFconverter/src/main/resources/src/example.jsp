@@ -10,6 +10,7 @@
 		<title>JSF graphic image example.</title>
 	</h:head>
     <h:body>
+    <h1>dummy</h1>
       <h3>Java Image</h3>
       <h:graphicImage value="image/java.jpg"/>
       <h3>Java Image</h3>

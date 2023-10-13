@@ -16,7 +16,7 @@ public class Parser {
   }
 //        <h:graphicImage id="pic2" styleClass="img" url="image/java.jpg" alt="${Bean.pic.text}"
 //        title="example pic" rendered=${!empty Bean.pic}/>
-  public String mapper(String element){
+  public String mapToImg(String element){
     Map<String, String> attributes = getAttributes(element);
     StringBuilder result = new StringBuilder();
     if(attributes.containsKey("rendered")){
