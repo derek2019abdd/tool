@@ -12,15 +12,16 @@
     <h:body>
     <h1>dummy</h1>
       <h3>Java Image</h3>
-      <img value="image/java.jpg"/>
-
+      <h:panelGroup>
+      	<img value="image/java.jpg"/>
+      </h:panelGroup>
       <h3>Java Image</h3>
-      <c:if test="${!empty fn:escapeXML(Bean.pic)}">
-<img alt="pic for demo" id="pic2" title="example pic" class="img" url="image/java.jpg"/>
-</c:if>
+      <h:panelGroup rendered="<h:outputText value=#{!empty Bean.pic}/>">
+      	<img alt="pic for demo" id="pic2" title="example pic" class="img" url="image/java.jpg"/>
+      </h:panelGroup>
       <h3>Java Image example 2</h3>
-      <c:if test="${!empty fn:escapeXML(Bean.pic)}">
-<img alt="pic for demo" id="pic3" title="example pic" class="img" url="image/java.jpg"/>
-</c:if>
+      <h:panelGroup rendered="<h:outputText value=#{!empty Bean.pic}/>">
+      	<img alt="pic for demo" id="pic3" title="example pic" class="img" url="image/java.jpg"/>
+      </h:panelGroup>
     </h:body>
 </html>

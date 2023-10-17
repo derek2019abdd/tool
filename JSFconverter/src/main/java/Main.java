@@ -5,7 +5,7 @@ import java.util.List;
 public class Main {
   static final String srcFolderPath = "src/main/resources/src";
   static final String dstFolderPath = "src/main/resources/dst/";
-  static final String pattern = "<h:graphicImage[^>]*>";
+  static final String pattern = "\\h*<h:graphicImage[^>]*>";
 
   public static void main(String[] args) throws IOException {
     FileHandler handler = new FileHandler();
@@ -16,8 +16,8 @@ public class Main {
         Parser parser = new Parser();
         List<String> matches = parser.matchMultiline(content, pattern);
         for(String s : matches){
-          System.out.println(s);
-          System.out.println(parser.mapToImg(s));
+//          System.out.println(s);
+//          System.out.println(parser.mapToImg(s));
           content = content.replace(s, parser.mapToImg(s));
           handler.writeFile(dstFolderPath + file.getName(), content);
         }

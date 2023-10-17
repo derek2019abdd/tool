@@ -17,21 +17,30 @@ public class Parser {
 //        <h:graphicImage id="pic2" styleClass="img" url="image/java.jpg" alt="${Bean.pic.text}"
 //        title="example pic" rendered=${!empty Bean.pic}/>
   public String mapToImg(String element){
+    System.out.println(element);
+    Pattern pattern = Pattern.compile("^\\s*");
+    Matcher matcher = pattern.matcher(element);
+    String spaces = "";
+    if (matcher.find())
+    {
+      spaces = matcher.group();
+    }
     Map<String, String> attributes = getAttributes(element);
     StringBuilder result = new StringBuilder();
-    if(attributes.containsKey("rendered")){
-      result.append("<c:if test=").append(handleRendered(attributes.get("rendered"))).append(">\n");
+
+    result.append(spaces).append("<h:panelGroup");
+    if(attributes.containsKey("rendered")) {
+      result.append(" rendered=").append(handleXSS(attributes.get("rendered")));
     }
-    result.append("<img ");
+    result.append(">\n");
+    result.append(spaces + "\t").append("<img ");
     for(String key : attributes.keySet()){
       if(!key.equals("rendered")){
         result.append(key).append("=").append(handleXSS(attributes.get(key))).append(" ");
       }
     }
     result.deleteCharAt(result.length()-1).append("/>\n");
-    if(attributes.containsKey("rendered")){
-      result.append("</c:if>");
-    }
+    result.append(spaces).append("</h:panelGroup>");
     return result.toString();
   }
 
@@ -73,10 +82,6 @@ public class Parser {
     };
   }
   private String handleXSS(String value){
-    return value.replace("${", "${fn:escaleXml(").replace("}", ")}");
-  }
-//  rendered=${!empty Bean.pic} -> <c:if test=${!empty fn:escapeXML(Bean.pic)}
-  private String handleRendered(String value){
-    return value.replace("${!empty ","${!empty fn:escapeXML(").replace("}", ")}");
+    return value.replace("${", "<h:outputText value=#{").replace("}", "}/>");
   }
 }
